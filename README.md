@@ -9,7 +9,8 @@ In the mandatory part, a container with [nginx](https://www.nginx.com/resources/
 
 For the bonus we have to configure a container with an [FTP server](https://en.wikipedia.org/wiki/Vsftpd) that accesses the [wordpress](https://en.wikipedia.org/wiki/WordPress) [volume](https://docs.docker.com/storage/volumes/), a static site, [redis](https://redis.io/) to cache the database requests and a useful service of our choice. In this case the service chosen was [ngrok](https://ngrok.com/) to allow local services to be available on the web (public access over the internet).
 
-### Badge
+### Project Badge :
+
 <img src="./images/inceptionm.png" width="150" height="150"/>
 
 #### Skills
