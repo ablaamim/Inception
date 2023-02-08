@@ -62,5 +62,3 @@ Docker also provides a centralized mechanism for managing containers, images, an
 In summary, Docker provides a simple and efficient way to package and deploy applications in containers, and manage their lifecycle.
 
 ---
-
---> i dont know
