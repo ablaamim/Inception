@@ -11,7 +11,7 @@ You need to virtualize several [Docker images](https://www.techtarget.com/search
 
 ---
 
-<img src="./images/docker.png" width="800"/>
+<img src="./images/docker.jpg" width="800"/>
 
 Inception is an individual project at 1337 which requires us to build an infrastructure of services using [Docker](https://docs.docker.com/get-started/overview/), orchestrated by [Docker Compose](https://docs.docker.com/compose/).
 
@@ -47,6 +47,14 @@ For the bonus we have to configure a container with an [FTP server](https://en.w
 
 ---
 
+#### Goal :
+
+---
+
+> Use docker-compose to create a LEMP stack (L for Linux, E for Nginx, M for Mariadb and P for PHP) with wordpress.
+
+---
+
 #### How Docker works ?
 
 ---
@@ -63,4 +71,4 @@ In summary, Docker provides a simple and efficient way to package and deploy app
 
 ---
 
-02/03/2023 this project will be validated
+---
