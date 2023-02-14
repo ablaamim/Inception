@@ -71,4 +71,98 @@ In summary, Docker provides a simple and efficient way to package and deploy app
 
 ---
 
+#### Setting up the virtual machine :
+
+---
+
+> First download a stable version of debian:buster.
+> install without GUI (GUI is for noobs bruh!).
+
+---
+
+#### Configuration :
+
+---
+
+> First use command line as super user / Switch user :
+
+```
+$> su
+Password:
+
+> Update system :
+
+```
+$> apt-get update
+```
+
+```
+> Then install needed software entring the following command :
+
+```
+$> apt-get install sudo ufw docker docker-compose make openbox xinit kitty firefox-esr vim tree \
+apt-transport-https ca-certificates curl git systemd 
+```
+
+---
+
+### Port forwarding :
+
+---
+
+##### Installing and Configuring UFW :
+
+---
+
+Perform the UFW installation :
+
+---
+
+```
+$> sudo apt-get install ufw
+```
+
+Enable UFW :
+
+```
+$> sudo ufw enable
+```
+
+Allow connections to your server through port 4242 :
+
+```
+$ ufw allow 4242
+```
+
+Check the UFW settings :
+
+```
+$> ufw status
+```
+
+```
+$> dpkg -l | grep ufw
+```
+
+---
+
+##### Network adapter configuration :
+
+---
+
+Add forward rule for VirtualBox :
+
+---
+
+> Go to VirtualBox-> Choose the VM->Select Settings
+Choose “Network”-> “Adapter 1"->”Advanced”->”Port Forwarding”
+Add new rule (little green button on right top side) and next parameters:
+
+**************************************************************************
+* Protocol       Host IP       Host Port       Guest IP       Guest Port *
+* TCP            127.0.0.1     4242            		      4242       *
+**************************************************************************
+In your host (physical) machine open Terminal and run [ssh @localhost -p 4242]
+Now you can control your virtual machine from the host terminal!
+
 ---
