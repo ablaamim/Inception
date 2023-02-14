@@ -57,22 +57,6 @@ For the bonus we have to configure a container with an [FTP server](https://en.w
 
 ---
 
-#### How Docker works ?
-
----
-
-Docker works by using a client-server architecture, where the Docker client communicates with the Docker daemon to build, run, and manage containers.
-
-When you run a Docker command, such as docker run, the Docker client sends a request to the Docker daemon to run a container. The Docker daemon pulls the image needed to run the container (if it's not already on the host machine), and then creates a container from the image.
-
-The container runs in an isolated environment on the host machine, with its own file system, network, and process space. This isolation ensures that the application running in the container is completely self-contained and does not affect the host machine or other containers running on the same machine.
-
-Docker also provides a centralized mechanism for managing containers, images, and networks. You can use Docker commands to list containers, inspect their state, start and stop containers, and more. Docker also provides a public registry, Docker Hub, where you can find and download images for use in your containers.
-
-In summary, Docker provides a simple and efficient way to package and deploy applications in containers, and manage their lifecycle.
-
----
-
 #### Setting up the virtual machine :
 
 ---
@@ -164,7 +148,7 @@ Add new rule (little green button on right top side) and next parameters:
 
 **************************************************************************
 * Protocol       Host IP       Host Port       Guest IP       Guest Port *
-* TCP            127.0.0.1     4242            		      4242       *
+* SSH                          42            		             42      *
 **************************************************************************
 
 ---
@@ -173,3 +157,49 @@ Add new rule (little green button on right top side) and next parameters:
 Now you can control your virtual machine from the host terminal!
 
 ---
+
+### Docker :
+
+---
+
+<img src="https://i0.wp.com/ledatascientist.com/wp-content/uploads/2020/01/docker_logo.png?w=601&ssl=1" width="500"/>
+
+---
+
+#### What is docker ?
+
+---
+
+Docker is an open source project used to build a virtualization environment written in Go language. Compared to the existing virtualization technology, there is little performance loss, so it is used in many infrastructure solutions.
+
+Docker , which is generally referred to, is used in two contexts depending on the situation. It means Docker Engine , or it is called Docker as a collective name for several Docker projects .
+
+There are several projects in Docker , such as Docker Compose , Private Registry , Docker Machine , and Kinematic . These Docker projects are meant to use Docker Engine more efficiently, so in the end, the core is Docker Engine .
+
+<img src="<img src="https://i0.wp.com/ledatascientist.com/wp-content/uploads/2020/01/docker_logo.png?w=601&ssl=1" width="500"/>
+
+Existing virtualization technology used a virtual machine (VM) , a concept in which a hypervisor exists on a host OS and guest OSes exist on top of it. Virtualization here means creating a space independent of the space of the machine you are currently using.
+Docker also uses virtualization technology, but it is not structured using Hypervisor and Guest OS as before.
+Hypervisor manages Guest OS and virtualizes resources so that system resources can be distributed to Guest OS . Among the processes, a lot of performance degradation occurs when virtualization of devices such as I/O used in the host OS is performed. And even when using a VM like this , you can create an image as in the case of using Docker . Since the image is created with the Kernel of the Guest OS included, not only the size of the image is quite large, but the image creation time is longer as the Kernel is included. long.
+For these reasons, various attempts were made on paravirtualization technologies such as Intel 's Xen and Linux 's KVM , and after that, a technology called Container became the standard of virtualization technology.
+Container is a technology that is used on Linux and is implemented only with Linux's own functions such as chroot , namespace , and cgroup to create an independent space for each process. Docker 's container uses Linux 's container , and by adding several functions to Linux 's container , it makes it easier to use the application as a container .
+
+---
+
+#### How Docker works ?
+
+---
+
+Docker works by using a client-server architecture, where the Docker client communicates with the Docker daemon to build, run, and manage containers.
+
+When you run a Docker command, such as docker run, the Docker client sends a request to the Docker daemon to run a container. The Docker daemon pulls the image needed to run the container (if it's not already on the host machine), and then creates a container from the image.
+
+The container runs in an isolated environment on the host machine, with its own file system, network, and process space. This isolation ensures that the application running in the container is completely self-contained and does not affect the host machine or other containers running on the same machine.
+
+Docker also provides a centralized mechanism for managing containers, images, and networks. You can use Docker commands to list containers, inspect their state, start and stop containers, and more. Docker also provides a public registry, Docker Hub, where you can find and download images for use in your containers.
+
+In summary, Docker provides a simple and efficient way to package and deploy applications in containers, and manage their lifecycle.
+
+---
+
+
