@@ -42,6 +42,13 @@ For the bonus we have to configure a container with an [FTP server](https://en.w
 
 #### Architecture :
 
+* A Docker container that contains NGINX with TLSv1.2 or TLSv1.3 only.
+* A Docker container that contains WordPress + php-fpm (it must be installed and configured) only without nginx.
+* A Docker container that contains MariaDB only without nginx.
+* A volume that contains your WordPress database.
+* A second volume that contains your WordPress website files.
+* A docker-network that establishes the connection between your containers.
+
 </p>
 <p align="center">
 <img src="./images/architecture" width="800"/>
@@ -61,12 +68,11 @@ For the bonus we have to configure a container with an [FTP server](https://en.w
 
 ---
 
-> First download a stable version of debian:buster.
-> install without GUI (GUI is for noobs bruh!).
+> First download a stable version of debian:buster and install it properly.
 
 ---
 
-#### Configuration :
+#### System configuration :
 
 ---
 
@@ -86,8 +92,7 @@ $> apt-get update
 > Then install needed software entring the following command :
 
 ```
-$> apt-get install sudo ufw docker docker-compose make openbox xinit kitty firefox-esr vim tree \
-apt-transport-https ca-certificates curl git systemd 
+$> apt-get install sudo ufw vim tree apt-transport-https ca-certificates curl git systemd 
 ```
 
 ---
