@@ -1,4 +1,4 @@
-1### Foreword :
+### Foreword :
 
 ----
 
@@ -12,6 +12,8 @@ You need to virtualize several [Docker images](https://www.techtarget.com/search
 ---
 
 <img src="./images/docker.jpg" width="800"/>
+
+---
 
 Inception is an individual project at 1337 which requires us to build an infrastructure of services using [Docker](https://docs.docker.com/get-started/overview/), orchestrated by [Docker Compose](https://docs.docker.com/compose/).
 
@@ -89,6 +91,7 @@ In summary, Docker provides a simple and efficient way to package and deploy app
 ```
 $> su
 Password:
+```
 
 > Update system :
 
@@ -96,7 +99,6 @@ Password:
 $> apt-get update
 ```
 
-```
 > Then install needed software entring the following command :
 
 ```
@@ -114,7 +116,7 @@ apt-transport-https ca-certificates curl git systemd
 
 ---
 
-Perform the UFW installation :
+###### Perform the UFW installation :
 
 ---
 
@@ -122,19 +124,19 @@ Perform the UFW installation :
 $> sudo apt-get install ufw
 ```
 
-Enable UFW :
+##### Enable UFW :
 
 ```
 $> sudo ufw enable
 ```
 
-Allow connections to your server through port 4242 :
+##### Allow connections to your server through port 4242 :
 
 ```
 $ ufw allow 4242
 ```
 
-Check the UFW settings :
+##### Check the UFW settings :
 
 ```
 $> ufw status
@@ -150,7 +152,7 @@ $> dpkg -l | grep ufw
 
 ---
 
-Add forward rule for VirtualBox :
+##### Add forward rule for VirtualBox :
 
 ---
 
@@ -158,11 +160,16 @@ Add forward rule for VirtualBox :
 Choose “Network”-> “Adapter 1"->”Advanced”->”Port Forwarding”
 Add new rule (little green button on right top side) and next parameters:
 
+---
+
 **************************************************************************
 * Protocol       Host IP       Host Port       Guest IP       Guest Port *
 * TCP            127.0.0.1     4242            		      4242       *
 **************************************************************************
-In your host (physical) machine open Terminal and run [ssh @localhost -p 4242]
+
+---
+
+> In your host (physical) machine open Terminal and run [ssh @localhost -p 4242]
 Now you can control your virtual machine from the host terminal!
 
 ---
