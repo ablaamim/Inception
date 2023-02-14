@@ -178,7 +178,10 @@ Now you can control your virtual machine from the host terminal!
 
 ---
 
+</p>
+<p align="center">
 <img src="https://i0.wp.com/ledatascientist.com/wp-content/uploads/2020/01/docker_logo.png?w=601&ssl=1" width="500"/>
+<p/>
 
 ---
 
@@ -232,7 +235,7 @@ $> sudo apt-get install docker
 
 #### Sudoers policy :
 
-> If you followed along when installing debian , you will remember that we created separate root accounts and regular user accounts. Of course, if you use the root account, there is no big problem, but in order to use Docker Compose smoothly with the login user account , register a general user as sudoer and at the same time register in the root group to obtain permission to access files and directories owned by root .
+> If you use the root account, there is no big problem, but in order to use Docker Compose smoothly with the login user account , register a general user as sudoer and at the same time register in the root group to obtain permission to access files and directories owned by root.
 
 ##### Switch user :
 
@@ -252,6 +255,14 @@ $> sudo usermod -a -G sudo $login
 ```
 $> sudo usermod -a -G root $login
 ```
+
+##### add our user to the group with the command :
+
+```
+sudo usermod -aG docker $login
+```
+
+
 
 ##### Modify /etc/sudoer using visudo
 
@@ -275,3 +286,17 @@ $> su - login
 ```
 
 ---
+
+#### Container OS :
+
+---
+
+> Depending on the subject specification , debian:buster or alpine can be used as the OS to be based on the container . Since alpine has been chosen and used a lot as a lightweight OS on the container, tgars why better you choose it. alpine 3.13 to be more precised !
+
+---
+
+#### Nginx :
+
+---
+
+
