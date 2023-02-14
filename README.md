@@ -68,7 +68,7 @@ For the bonus we have to configure a container with an [FTP server](https://en.w
 
 ---
 
-> First download a stable version of debian:buster and install it properly.
+> First download a stable version of debian:buster and install it properly (Better install it with GUI).
 
 ---
 
@@ -79,7 +79,7 @@ For the bonus we have to configure a container with an [FTP server](https://en.w
 > First use command line as super user / Switch user :
 
 ```
-$> su
+$> su -
 Password:
 ```
 
@@ -94,6 +94,10 @@ $> apt-get update
 ```
 $> apt-get install sudo ufw vim tree apt-transport-https ca-certificates curl git systemd 
 ```
+
+> apt-transport-https sets the package manager to use https protocol
+
+> ca-certificates Obtain a certificate from CA (Certificate Authorities) to enable SSL communication. (SSL = secured sockets layer)
 
 ---
 
@@ -113,16 +117,16 @@ $> apt-get install sudo ufw vim tree apt-transport-https ca-certificates curl gi
 $> sudo apt-get install ufw
 ```
 
-##### Enable UFW :
+##### Enable UFW with this command :
 
 ```
 $> sudo ufw enable
 ```
 
-##### Allow connections to your server through port 4242 :
+##### Allow connections to your server through port 42 :
 
 ```
-$ ufw allow 4242
+$ ufw allow 42
 ```
 
 ##### Check the UFW settings :
@@ -151,11 +155,12 @@ Add new rule (little green button on right top side) and next parameters:
 
 ---
 
+```
 **************************************************************************
 * Protocol       Host IP       Host Port       Guest IP       Guest Port *
-* SSH                          42            		             42      *
+* TCP                            42            		             42      *
 **************************************************************************
-
+```
 ---
 
 > In your host (physical) machine open Terminal and run [ssh @localhost -p 4242]
@@ -204,5 +209,60 @@ The container runs in an isolated environment on the host machine, with its own 
 Docker also provides a centralized mechanism for managing containers, images, and networks. You can use Docker commands to list containers, inspect their state, start and stop containers, and more. Docker also provides a public registry, Docker Hub, where you can find and download images for use in your containers.
 
 In summary, Docker provides a simple and efficient way to package and deploy applications in containers, and manage their lifecycle.
+
+---
+
+#### Install docker :
+
+---
+
+```
+$> sudo apt-get install docker
+```
+---
+
+#### Sudoers policy :
+
+> If you followed along when installing debian , you will remember that we created separate root accounts and regular user accounts. Of course, if you use the root account, there is no big problem, but in order to use Docker Compose smoothly with the login user account , register a general user as sudoer and at the same time register in the root group to obtain permission to access files and directories owned by root .
+
+##### Switch user :
+
+```
+$> su -
+Password:
+```
+##### Add the user to the sudo group :
+
+
+```
+$> sudo usermod -a -G sudo $login
+```
+
+##### Add the user to the root group :
+
+```
+$> sudo usermod -a -G root $login
+```
+
+##### Modify /etc/sudoer using visudo
+
+```
+$> sudo visudo
+```
+
+```
+   login       ALL=(ALL:ALL) ALL
+    |           |    |        |
+    |           |    |        |
+   Username     |    |        |
+              Host   |        |
+                  All Users   |
+                          All commands
+```
+##### switch user :
+
+```
+$> su - login
+```
 
 ---
