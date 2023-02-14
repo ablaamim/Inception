@@ -11,8 +11,10 @@ You need to virtualize several [Docker images](https://www.techtarget.com/search
 
 ---
 
+</p>
+<p align="center">
 <img src="./images/docker.jpg" width="800"/>
-
+</p>
 ---
 
 Inception is an individual project at 1337 which requires us to build an infrastructure of services using [Docker](https://docs.docker.com/get-started/overview/), orchestrated by [Docker Compose](https://docs.docker.com/compose/).
@@ -27,8 +29,10 @@ For the bonus we have to configure a container with an [FTP server](https://en.w
 
 ---
 
+</p>
+<p align="center">
 <img src="./images/inceptionm.png" width="150" height="150"/>
-
+<p/>
 ---
 
 #### Skills :
@@ -156,10 +160,12 @@ Add new rule (little green button on right top side) and next parameters:
 ---
 
 ```
+
 **************************************************************************
 * Protocol       Host IP       Host Port       Guest IP       Guest Port *
-* TCP                            42            		             42      *
+* TCP                            42            		              42     *
 **************************************************************************
+
 ```
 ---
 
@@ -186,7 +192,10 @@ Now you can control your virtual machine from the host terminal!
 
 > There are several projects in Docker , such as Docker Compose , Private Registry , Docker Machine , and Kinematic . These Docker projects are meant to use Docker Engine more efficiently, so in the end, the core is Docker Engine .
 
+</p>
+<p align="center">
 <img src="https://oopy.lazyrockets.com/api/v2/notion/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F8b42f68d-2f91-4dac-9413-27e0f9de5d5e%2FUntitled.png&blockId=58fb89f1-6ab3-4683-a143-283e59cb1a3d" width="500"/>
+</p>
 
 > Existing virtualization technology used a virtual machine (VM) , a concept in which a hypervisor exists on a host OS and guest OSes exist on top of it. Virtualization here means creating a space independent of the space of the machine you are currently using.
 Docker also uses virtualization technology, but it is not structured using Hypervisor and Guest OS as before.
