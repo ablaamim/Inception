@@ -15,6 +15,7 @@ You need to virtualize several [Docker images](https://www.techtarget.com/search
 <p align="center">
 <img src="./images/docker.jpg" width="800"/>
 </p>
+
 ---
 
 Inception is an individual project at 1337 which requires us to build an infrastructure of services using [Docker](https://docs.docker.com/get-started/overview/), orchestrated by [Docker Compose](https://docs.docker.com/compose/).
@@ -33,6 +34,7 @@ For the bonus we have to configure a container with an [FTP server](https://en.w
 <p align="center">
 <img src="./images/inceptionm.png" width="150" height="150"/>
 <p/>
+
 ---
 
 #### Skills :
@@ -187,6 +189,61 @@ Now you can control your virtual machine from the host terminal!
 
 ---
 
+#### Sudoers policy :
+
+> If you use the root account, there is no big problem, but in order to use Docker Compose smoothly with the login user account , register a general user as sudoer and at the same time register in the root group to obtain permission to access files and directories owned by root.
+
+##### Switch user :
+
+```
+$> su -
+Password:
+```
+##### Add the user to the sudo group :
+
+
+```
+$> sudo usermod -a -G sudo $login
+```
+
+##### Add the user to the root group :
+
+```
+$> sudo usermod -a -G root $login
+```
+
+##### add our user to the group with the command :
+
+```
+sudo usermod -aG docker $login
+```
+
+
+
+##### Modify /etc/sudoer using visudo
+
+```
+$> sudo visudo
+```
+
+```
+   login       ALL=(ALL:ALL) ALL
+    |           |    |        |
+    |           |    |        |
+   Username     |    |        |
+              Host   |        |
+                  All Users   |
+                          All commands
+```
+##### switch user :
+
+```
+$> su - login
+```
+
+---
+
+
 ### Docker :
 
 ---
@@ -244,60 +301,6 @@ In summary, Docker provides a simple and efficient way to package and deploy app
 ```
 $> sudo apt-get install docker
 ```
----
-
-#### Sudoers policy :
-
-> If you use the root account, there is no big problem, but in order to use Docker Compose smoothly with the login user account , register a general user as sudoer and at the same time register in the root group to obtain permission to access files and directories owned by root.
-
-##### Switch user :
-
-```
-$> su -
-Password:
-```
-##### Add the user to the sudo group :
-
-
-```
-$> sudo usermod -a -G sudo $login
-```
-
-##### Add the user to the root group :
-
-```
-$> sudo usermod -a -G root $login
-```
-
-##### add our user to the group with the command :
-
-```
-sudo usermod -aG docker $login
-```
-
-
-
-##### Modify /etc/sudoer using visudo
-
-```
-$> sudo visudo
-```
-
-```
-   login       ALL=(ALL:ALL) ALL
-    |           |    |        |
-    |           |    |        |
-   Username     |    |        |
-              Host   |        |
-                  All Users   |
-                          All commands
-```
-##### switch user :
-
-```
-$> su - login
-```
-
 ---
 
 #### Container OS :
