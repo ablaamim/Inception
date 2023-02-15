@@ -72,7 +72,7 @@ For the bonus we have to configure a container with an [FTP server](https://en.w
 
 ---
 
-> First download a stable version of debian:buster and install it properly (Better install it with GUI).
+> First download a stable version of debian:buster and install it properly. (Personally did not use GUI)
 
 ---
 
@@ -95,8 +95,16 @@ $> apt-get update
 
 > Then install needed software entring the following command :
 
+###### if you used GUI :
+
 ```
 $> apt-get install sudo ufw vim tree apt-transport-https ca-certificates curl git systemd 
+```
+
+###### In case if you dont use GUI :
+
+```
+$> apt-get install sudo ufw vim tree apt-transport-https ca-certificates curl git systemd openbox xinit kitty firefox-esr
 ```
 
 > apt-transport-https sets the package manager to use https protocol
@@ -130,7 +138,10 @@ $> sudo ufw enable
 ##### Allow connections to your server through port 42 :
 
 ```
-$ ufw allow 42
+$> ufw allow ssh
+$> ufw allow 42
+$> ufw allow 443
+$> ufw allow 80
 ```
 
 ##### Check the UFW settings :
@@ -163,7 +174,9 @@ Add new rule (little green button on right top side) and next parameters:
 
 **************************************************************************
 * Protocol       Host IP       Host Port       Guest IP       Guest Port *
-* TCP                            42            		              42     *
+* TCP                             42                              42     *
+* TCP                             443                             443    *
+* TCP                             80                              80     *
 **************************************************************************
 
 ```
@@ -296,6 +309,23 @@ $> su - login
 ---
 
 #### Nginx :
+
+---
+
+</p>
+<p align="center">
+<img src="https://cdn-media-1.freecodecamp.org/images/RooSvbKlAWsOjkz8JPactXH-GPf4Pe6DC3Ue" width="800"/>
+</p>
+
+---
+
+NGINX (pronounced "engine-x") is a popular open source web server and reverse proxy software. It was created by Igor Sysoev in 2002 and first released in 2004.
+
+NGINX is designed to handle high traffic websites and applications with low resource usage. It is known for its high performance, scalability, and reliability. NGINX is used by many of the world's largest websites, including Airbnb, Dropbox, Netflix, and Pinterest.
+
+In addition to serving static and dynamic content, NGINX can also act as a reverse proxy, load balancer, and HTTP cache. It is often used in conjunction with other software to provide a complete web application stack.
+
+NGINX is available for free under the open source BSD license, and there are also commercial versions with additional features and support available from NGINX Inc.
 
 ---
 
