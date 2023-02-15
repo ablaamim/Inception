@@ -100,13 +100,13 @@ $> apt-get update
 ###### if you used GUI :
 
 ```
-$> apt-get install sudo ufw vim tree apt-transport-https ca-certificates curl git systemd 
+$> apt-get install sudo ufw vim tree apt-transport-https ca-certificates curl git systemd make docker docker-compose
 ```
 
 ###### In case if you dont use GUI :
 
 ```
-$> apt-get install sudo ufw vim tree apt-transport-https ca-certificates curl git systemd openbox xinit kitty firefox-esr
+$> apt-get install sudo ufw vim tree apt-transport-https ca-certificates curl git systemd openbox xinit kitty firefox-esr make docker docker-compose
 ```
 
 > apt-transport-https sets the package manager to use https protocol
@@ -243,6 +243,18 @@ $> su - login
 
 ---
 
+###### Add custom url :
+
+```
+$> vim /etc/hosts
+```
+
+###### Add this line next to local host :
+
+```
+$login.42.fr
+```
+
 
 ### Docker :
 
@@ -292,15 +304,6 @@ Docker also provides a centralized mechanism for managing containers, images, an
 
 In summary, Docker provides a simple and efficient way to package and deploy applications in containers, and manage their lifecycle.
 
----
-
-#### Install docker :
-
----
-
-```
-$> sudo apt-get install docker
-```
 ---
 
 #### Container OS :
