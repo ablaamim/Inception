@@ -243,16 +243,12 @@ $> su - login
 
 ---
 
-###### Add custom url :
+###### DNS :
+
+If this is set up, you can connect to https://localhost without any problems and see that WordPress is provided. However, access is not possible with the domain name requested by the subject , but this can be applied by setting /etc/hosts .
 
 ```
-$> vim /etc/hosts
-```
-
-###### Add this line next to local host :
-
-```
-$login.42.fr
+$> sudo echo "127.0.0.1 $login" >> /etc/hosts
 ```
 
 
@@ -306,6 +302,82 @@ In summary, Docker provides a simple and efficient way to package and deploy app
 
 ---
 
+#### Docker network : what kind of network should I chose ?
+
+Docker documentation says :
+
+>In terms of Docker, a **bridge network** uses a software bridge which allows containers connected to the same bridge network to communicate, while providing isolation from containers which are not connected to that bridge network. The Docker bridge driver automatically installs rules in the host machine so that containers on different bridge networks cannot communicate directly with each other.
+>Bridge networks apply to containers running **on the same Docker daemon host**.
+
+For this project, as it will run on a single Docker host and as I need different containers to communicate, I chose to use a **user-defined bridge network**.
+
+Unlike default bridge network, which is automatically created by Docker when you start new containers, user-defined bridge networks comes with some benefits :
+* **Automatic DNS resolution** between containers : you can directly reference a container to another using their names instead of --link flag
+* **Better isolation** : the containers are not attached to a default network where they can communicate with other unrelated containers
+* Containers on the same network share **environment variables**
+
+<br />
+
+---
+
+#### Depend-on : Control startup and shutdown order in Compose 
+
+Docker-compose offers the possibility to condition the start of a container to the status of another.
+
+```yml
+nginx:
+    image: nginx:${TAG}
+    build: ./requirements/nginx
+    container_name: nginx
+    depends_on:
+      wordpress:
+        condition: service_healthy
+      adminer:
+        condition: service_healthy
+      hugo:
+          condition: service_healthy
+    restart: always
+    ports: ['443:443']
+    volumes: ['wordpress_data:/var/www/wordpress']
+    networks: ['inception_network']
+```
+
+For example in this project, Nginx is forwarding php traffic to php-fpm services of wordpress and adminer, In the configuration file of nginx, you have **references** to other containers :
+
+```conf
+...
+location            ~* \.php$ 
+    {
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_pass    wordpress:9000;
+        fastcgi_index   index.php;
+        include         fastcgi_params;
+        fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param   SCRIPT_NAME     $fastcgi_script_name;
+    }
+...
+
+#### Networks
+
+Containers on the same network can communicate.
+
+If you need to secure a little bit more your multi-containers application, you can create **dedicated networks between certain containers instead of one big network for all containers**.
+
+For example, in this project, I need my Nginx container to communicate with the wordpress/php-fpm container, but not with mariadb directly.
+
+I could create multiple networks to allow communication between my containers :
+
+```txt
+network 1 : nginx / wordpress
+network 2 : wordpress / mariadb
+```
+
+In the docker-compose.yml file, nginx will only be on `network 1`, mariadb on `network 2` and wordpress on `network 1` and `network 2`.
+
+<br />
+
+---
+
 #### Container OS :
 
 ---
@@ -335,4 +407,14 @@ NGINX is available for free under the open source BSD license, and there are als
 
 ---
 
+#### Understand Nginx Location/Server block and directive :
 
+---
+
+###### Directives :
+
+> I thought it would be the end if I escaped from the unknown WordPress , but Nginx 's Directives setting is also quite difficult. There will be some people who are new to the concept of CGI , and accordingly, the regular expression of Location and each argument that must be set can be a bit confusing. Fortunately, the link below introduces the role of various factors of fastcgi used in php , and accordingly, you can estimate which factors are essential. In particular, in the case of fastcgi_pass , it refers to the path of the backend. Due to the characteristics of Docker Compose , services that exist on the same network can be accessed only with the service name, so it can be used conveniently.
+
+[Location block](https://www.digitalocean.com/community/tutorials/understanding-nginx-server-and-location-block-selection-algorithms)
+
+---
