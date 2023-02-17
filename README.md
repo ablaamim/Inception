@@ -100,13 +100,13 @@ $> apt-get update
 ###### if you used GUI :
 
 ```
-$> apt-get install sudo ufw vim tree apt-transport-https ca-certificates curl git systemd make docker docker-compose
+$> apt-get install sudo ufw vim tree apt-transport-https ca-certificates curl git systemd make docker docker-compose htop
 ```
 
 ###### In case if you dont use GUI :
 
 ```
-$> apt-get install sudo ufw vim tree apt-transport-https ca-certificates curl git systemd openbox xinit kitty firefox-esr make docker docker-compose
+$> apt-get install sudo ufw vim tree apt-transport-https ca-certificates curl git systemd openbox xinit kitty firefox-esr make docker docker-compose htop
 ```
 
 > apt-transport-https sets the package manager to use https protocol
@@ -386,6 +386,34 @@ In the docker-compose.yml file, nginx will only be on `network 1`, mariadb on `n
 
 ---
 
+#### PID 1 :
+
+---
+
+> If you have created a Docker container at least once, you must have experienced that it is terminated even though the command is listed as an Entrypoint or Command . Let's understand this first and move on.
+Among the many reasons to use Docker instead of VM , one that cannot be left out is PID 1 . This means that the container will be in charge of only one process registered with PID 1 , and accordingly, a single container means only one service (process), making it consistent in terms of server environment management.
+
+> If so, you can simply launch a process that should be operated as a service, but you need to think about why the above behavior was attempted, which is related to the daemon process. Basically, if you look at the process structure in Unix , it has a tree structure in the form of starting with PID 1 , which is the root , and creating children. In normal use, such a structure shouldn't be a problem, but services that you maintain on the machine ( such as docker.d and mysql.d for example ) can be problematic. Processes maintained in a tree structure are all terminated when the parent process dies. If a process running as a service becomes unavailable due to the termination of the parent process, problems arise in other processes using it. Accordingly, processes that need to be maintained as services are created and operated by creating a separate root, which is called a daemon process.
+Therefore, the daemon process is not basically run with PID 1 , so of course the Docker Container sees that there is nothing to run, and the terminated state is repeated. So, why not just run things that run as daemon processes as regular processes? That's right, so you need to look for options related to this. Typically, daemon processes provide this functionality.
+
+[PID 1](https://daveiscoding.com/why-do-you-need-an-init-process-inside-your-docker-container-pid-1)
+
+---
+
+#### Dumb-init :
+
+---
+
+dumb-init is a simple process supervisor and init system designed to run as PID 1 inside minimal container environments (such as Docker). It is deployed as a small, statically-linked binary written in C.
+
+Lightweight containers have popularized the idea of running a single process or service without normal init systems like systemd or sysvinit. However, omitting an init system often leads to incorrect handling of processes and signals, and can result in problems such as containers which can't be gracefully stopped, or leaking containers which should have been destroyed.
+
+dumb-init enables you to simply prefix your command with dumb-init. It acts as PID 1 and immediately spawns your command as a child process, taking care to properly handle and forward signals as they are received.
+
+[Dumb-init](https://engineeringblog.yelp.com/2016/01/dumb-init-an-init-for-docker.html)
+
+---
+
 #### Nginx :
 
 ---
@@ -407,13 +435,9 @@ NGINX is available for free under the open source BSD license, and there are als
 
 ---
 
-#### Understand Nginx Location/Server block and directive :
+#### Understanding Nginx Location/Server block and directive :
 
 ---
-
-###### Directives :
-
-> I thought it would be the end if I escaped from the unknown WordPress , but Nginx 's Directives setting is also quite difficult. There will be some people who are new to the concept of CGI , and accordingly, the regular expression of Location and each argument that must be set can be a bit confusing. Fortunately, the link below introduces the role of various factors of fastcgi used in php , and accordingly, you can estimate which factors are essential. In particular, in the case of fastcgi_pass , it refers to the path of the backend. Due to the characteristics of Docker Compose , services that exist on the same network can be accessed only with the service name, so it can be used conveniently.
 
 [Location block](https://www.digitalocean.com/community/tutorials/understanding-nginx-server-and-location-block-selection-algorithms)
 
