@@ -2,7 +2,7 @@
 
 ----
 
-This project aims to expand the knowledge of systems administration using [Docker](https://en.wikipedia.org/wiki/Docker_(software)).
+This project aims to expand your knowledge of systems administration using [Docker](https://en.wikipedia.org/wiki/Docker_(software)).
 You need to virtualize several [Docker images](https://www.techtarget.com/searchitoperations/definition/Docker-image) by creating them in your personal [virtual machine](https://www.vmware.com/topics/glossary/content/virtual-machine.html).
 
 ---
@@ -434,7 +434,12 @@ Nginx is a webserver which stores hmtl, js, images files and use http request to
 Nginx conf documents will be used to config our server and the right proxy connexion.
 
 ### configure .conf file on nginx :
+
+---
+
 #### useful nginx links :
+
+---
 
 - [location explanations](<https://www.digitalocean.com/community/tutorials/nginx-location-directive>)
 - [What is a proxy server](<https://www.varonis.com/fr/blog/serveur-proxy>)
@@ -443,15 +448,26 @@ Nginx conf documents will be used to config our server and the right proxy conne
 - [PID 1 signal handling && nginx](https://cloud.google.com/architecture/best-practices-for-building-containers#signal-handling)
 - [What is TLS(in french)](https://fr.wikipedia.org/wiki/Transport_Layer_Security)
 
+---
+
 #### Listen && Location :
+
+---
+
 - Listen will indicate to the server which request it has to accept:
 	Listen can take ports and adresses : exemple Listen 80;
 - The location directive within NGINX server block allows to route request to correct location within the file system.
 	The directive is used to tell NGINX where to look for a resource by including files and folders while matching a location block against an URL.
 
+---
+
 ### Fastcgi (or how to process PHP with nginx) :
 
+---
+
 #### Useful links :
+
+---
 
 - [What is http](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol)
 - [difference between http && tcp](https://www.goanywhere.com/blog/http-vs-tcp-whats-the-difference#:~:text=TCP%20contains%20information%20about%20what,data%20in%20the%20stream%20contains.)
@@ -465,11 +481,19 @@ PHP-FPM (for fast-cgi Process Manager) runs as an isolated service when you use 
 	and the Nginx server handles HTTP requests only, while PHP-FPM interprets the PHP code. Taking advantage of two separate services is vital to become more efficient.
 	It features with Wordpress
 
+---
+
 # Docker-compose :
+
+---
 
 - [tutorial open classroom dockercompose](https://openclassrooms.com/fr/courses/2035766-optimisez-votre-deploiement-en-creant-des-conteneurs-avec-docker/6211624-decouvrez-et-installez-docker-compose)
 
+---
+
 ## Docker-Compose commands :
+
+---
 
 ```c
 - docker-compose up -d --build, //Create and build all the containers and they still run in the background
@@ -479,20 +503,36 @@ PHP-FPM (for fast-cgi Process Manager) runs as an isolated service when you use 
 - Docker-compose down, //destroy all your ressources
 - docker-compose config, //check the syntax of you docker-compose file
 ```
+---
 
 ### Inside the docker-compose file :
 
+---
+
 All the information about what every line means are in this [tutorial](https://openclassrooms.com/fr/courses/2035766-optimisez-votre-deploiement-en-creant-des-conteneurs-avec-docker/6211677-creez-un-fichier-docker-compose-pour-orchestrer-vos-conteneurs)
 
+---
+
 ### WORDPRESS :
+
+---
+
 #### Useful links :
+
+---
+
 - [What is the wordpress CLI](https://www.dreamhost.com/wordpress/guide-to-wp-cli/#:~:text=The%20WP%2DCLI%20is%20a,faster%20using%20the%20WP%2DCLI.)  
 - [Know more about wp-config.php](https://wpformation.com/wp-config-php-et-functions-php-fichiers-wordpress/)  
 - [php-fpm - www.conf](https://myjeeva.com/php-fpm-configuration-101.html)  
 
 *definitions*
 *wp-config.php* This file tells to your database how to get your files and how to treat them
+
+---
+
 ### What are the steps to create your Wordpress :
+
+---
 
 1. **Create you dockerfile image** :
 
@@ -516,12 +556,20 @@ You need to edit www.conf and place it in /etc/php/7.3(the usual version of php 
 	- Put listen = 0.0.0.0:9000 to listen to all ports
 	- Increase the number for the pm values in order to avoid a 502 page
 
-# MARIADB :
+---
+
+### MARIADB :
+
+---
 
 MariaDB will be the database to store information about our wordpress users and settings.
 In this section we have to create the Mariadb image and create 2 users.
 
-## Useful links :
+---
+
+#### Useful links :
+
+---
 
 - [Import-export databases](https://www.interserver.net/tips/kb/import-export-databases-mysql-command-line/)  
 - [Create and give permissions to a user](https://www.daniloaz.com/en/how-to-create-a-user-in-mysql-mariadb-and-grant-permissions-on-a-specific-database/)  
@@ -529,7 +577,12 @@ In this section we have to create the Mariadb image and create 2 users.
 - [How to give all privileges for a user on a database](https://chartio.com/resources/tutorials/how-to-grant-all-privileges-on-a-database-in-mysql/)  
 - [How to import a data base](https://www.journaldunet.fr/web-tech/developpement/1202663-comment-importer-un-fichier-sql-dans-mysql-en-ligne-de-commande/)  
 
-## MARIADB useful commands :
+---
+
+#### MARIADB useful commands :
+
+---
+
 ```c
 mysql -uroot // To connect on mysql CLI
 SELECT User FROM mysql.user; // To see all the users
@@ -538,7 +591,12 @@ mysqldump -u username -p databasename > filename.sql // To export the file
 mysql -uroot -p$MYSQL_ROOT_PASSWORD $MYSQL_DATABASE < /usr/local/bin/wordpress.sql // To import the file
 ```
 
+---
+
 ## What are the steps to create your own Maria DB image :
+
+---
+
 1. **Create a dockerfile** :
 	- Download mariadb-server && mariadb-client
 	- To run mariaDB on your container, you have to copy your .sh and the .sql on the /var/local/bin/
@@ -569,9 +627,13 @@ mysql -uroot -p$MYSQL_ROOT_PASSWORD $MYSQL_DATABASE < /usr/local/bin/wordpress.s
 				- Your .sql is ready now to be imported
 			- Step 3: relaunch your docker-compose
 				- TADA you will be directly in your website by passing the phase of installation
-![Wordpress without installation](images/wordpress_page.png)
 
-### Commands to check if all is working :
+---
+
+#### Commands to check if all is working :
+
+---
+
 ```c
 	SHOW DATABASES; // show the databes
 	use 'wordpress'; // go in the wordpress databse
@@ -579,3 +641,5 @@ mysql -uroot -p$MYSQL_ROOT_PASSWORD $MYSQL_DATABASE < /usr/local/bin/wordpress.s
 	SELECT wp_users.display_name FROM wp_users; // display username from wordpress database
 	SELECT *  FROM wp_users; // select
 ```
+
+---
