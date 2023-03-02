@@ -613,9 +613,8 @@ mysql -uroot -p$MYSQL_ROOT_PASSWORD $MYSQL_DATABASE < /usr/local/bin/wordpress.s
 3. **Create your file.sql** :
 
 	- 2 options :
-		1. You create the database, the user and you give all privileges to the user
-			as [malatini did](https://github.com/42cursus/inception/blob/validated/srcs/requirements/mariadb/config/create_db.sql)
-		2. You export your own wordpress.sql as I did (and Lea did !!!!)
+		1. You create the database, the user and you give all privileges.
+		2. You export your own wordpress.sql.
 			- Step 1: Create your admin user on wordpress:
 				You might don't know what it is, no prob! It means you will export your admin user from your database in order to put it in your .sql file.
 				- Go to your wordpress website (localhost:443) and create your user by using the same username and password as your .env file.
